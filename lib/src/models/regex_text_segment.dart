@@ -2,10 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 
 class RegexTextSegment {
-  final String text;
-  final TextStyle style;
-  late final GestureRecognizer? gestureRecognizer;
-
   RegexTextSegment({
     required this.text,
     required this.style,
@@ -13,12 +9,16 @@ class RegexTextSegment {
   }) {
     if (onTap != null) {
       gestureRecognizer = TapGestureRecognizer()..onTap = onTap;
-    }else{
+    } else {
       gestureRecognizer = null;
     }
   }
 
-  void dispose(){
+  final String text;
+  final TextStyle style;
+  late final GestureRecognizer? gestureRecognizer;
+
+  void dispose() {
     gestureRecognizer?.dispose();
   }
 }

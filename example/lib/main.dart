@@ -20,56 +20,45 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
-  final String text1 = 'czincz\n'
-      '#_czincz_czincz_\n'
-      '#czincz.czincz\n'
-      '#czincz..czincz\n'
-      '#.czincz #czincz.\n'
-      '#czincz#czincz_czincz\n'
-      ' #czinczinczinczinczinczinczinczinczincz\n'
-      '@____czincz___czincz____\n'
-      '@czincz.czincz\n'
-      '@czincz..czincz\n'
-      '@.czincz @czincz.\n'
-      '@czincz@czincz_czincz\n'
-      ' @czinczinczinczinczinczinczinczinczincz\n'
-      '@here\n'
-      'czincz';
-
-  final String text2 = 'czincz';
-
-  bool text = true;
+  final String text1 = 'This is my first #text_regex, check its color!';
+  final String text2 = '"here" in @here has higher priority than @user_mention';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            text = !text;
-          });
-        },
-      ),
       body: SafeArea(
-        child: RegexText(
-          text ? text1 : text2,
-          defaultStyle: TextStyle(color: Colors.black),
-          regexes: [
-            RegexTextParam(
-              regex: Regexes.instagramHashtag,
-              style: TextStyle(color: Colors.blueAccent),
-              onTap: (String hashtag) => print('Hashtag: $hashtag'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: RegexText(
+                text1,
+                defaultStyle: const TextStyle(color: Colors.black),
+                regexes: [
+                  RegexTextParam(
+                    regex: Regexes.instagramHashtag,
+                    style: const TextStyle(color: Colors.blueAccent),
+                    onTap: (hashtag) => print('Hashtag: $hashtag'),
+                  ),
+                ],
+              ),
             ),
-            RegexTextParam(
-              regex: Regexes.instagramMention,
-              style: TextStyle(color: Colors.greenAccent),
-              onTap: (String mention) => print('User mention: $mention'),
-            ),
-            RegexTextParam(
-              regex: RegExp(r'here'),
-              style: TextStyle(color: Colors.redAccent),
-              priority: 2,
-              onTap: (String hashtag) => print('Helloooooo!!!'),
+            Center(
+              child: RegexText(
+                text2,
+                defaultStyle: const TextStyle(color: Colors.black),
+                regexes: [
+                  RegexTextParam(
+                    regex: Regexes.instagramMention,
+                    style: const TextStyle(color: Colors.redAccent),
+                  ),
+                  RegexTextParam(
+                    regex: RegExp(r'here'),
+                    style: const TextStyle(color: Colors.greenAccent),
+                    priority: 2,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
